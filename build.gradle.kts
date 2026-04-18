@@ -33,14 +33,18 @@ subprojects {
 
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
+        options.compilerArgs.add("-Amapstruct.defaultComponentModel=spring")
     }
 
     dependencies.apply {
         add("implementation", "org.springframework.boot:spring-boot-starter")
         add("implementation", "org.springframework.boot:spring-boot-starter-data-jpa")
         add("implementation", "org.springframework.boot:spring-boot-starter-web")
+        add("implementation", "org.mapstruct:mapstruct:1.5.5.Final")
         add("compileOnly", "org.projectlombok:lombok")
         add("annotationProcessor", "org.projectlombok:lombok")
+        add("annotationProcessor", "org.projectlombok:lombok-mapstruct-binding:0.2.0")
+        add("annotationProcessor", "org.mapstruct:mapstruct-processor:1.5.5.Final")
         add("runtimeOnly", "com.h2database:h2")
         add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
     }

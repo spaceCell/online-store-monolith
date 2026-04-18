@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation(project(":order-module"))
     implementation(project(":catalog-module"))
     implementation(project(":user-module"))

@@ -42,7 +42,7 @@ public class Order {
     private LocalDateTime createdAt;
 
     public enum OrderStatus {
-        PENDING, CONFIRMED, CANCELLED, COMPLETED
+        PENDING, CONFIRMED, CANCELLED
     }
 
     public Order(UUID userId, List<OrderItem> items) {
@@ -62,11 +62,6 @@ public class Order {
         item.setOrder(this);
     }
 
-    public void removeItem(OrderItem item) {
-        items.remove(item);
-        item.setOrder(null);
-    }
-
     private BigDecimal calculateTotal() {
         return items.stream()
                 .map(OrderItem::getSubtotal)
@@ -79,9 +74,5 @@ public class Order {
 
     public void cancel() {
         this.status = OrderStatus.CANCELLED;
-    }
-
-    public void complete() {
-        this.status = OrderStatus.COMPLETED;
     }
 }

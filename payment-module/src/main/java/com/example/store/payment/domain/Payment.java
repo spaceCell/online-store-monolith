@@ -35,10 +35,9 @@ public class Payment {
     private LocalDateTime processedAt;
 
     public enum PaymentStatus {
-        PENDING,    // Ожидает оплаты
-        PAID,       // Оплачен
-        FAILED,     // Ошибка оплаты
-        REFUNDED    // Возврат
+        PENDING,
+        PAID,
+        FAILED
     }
 
     public Payment(UUID orderId, UUID userId, BigDecimal amount) {

@@ -26,13 +26,6 @@ public class Product {
     private BigDecimal price;
     private Integer stockQuantity;
 
-    public Product(String name, String description, BigDecimal price, Integer stockQuantity) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-    }
-
     public void reserveStock(Integer quantity) {
         if (stockQuantity < quantity) {
             throw new InsufficientStockException(
