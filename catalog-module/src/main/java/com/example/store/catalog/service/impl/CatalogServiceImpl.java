@@ -14,12 +14,14 @@ import java.util.UUID;
 @Transactional
 public class CatalogServiceImpl implements CatalogService {
 
+    private static final String PRODUCT_NOT_FOUND = "Product not found: ";
+
     private final ProductRepository productRepository;
 
     @Override
     public Product reserveProduct(UUID productId, Integer quantity) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+                .orElseThrow(() -> new RuntimeException(PRODUCT_NOT_FOUND + productId));
 
         product.reserveStock(quantity);
         return productRepository.save(product);
@@ -28,7 +30,7 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void releaseProduct(UUID productId, Integer quantity) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+                .orElseThrow(() -> new RuntimeException(PRODUCT_NOT_FOUND + productId));
 
         product.releaseStock(quantity);
         productRepository.save(product);

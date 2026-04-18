@@ -33,6 +33,8 @@ import java.util.UUID;
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
+    private static final String ORDER_NOT_FOUND_MSG = "Заказ не найден: ";
+
     private final CatalogService catalogService;
     private final UserService userService;
     private final PaymentService paymentService;
@@ -108,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     public OrderResponse getOrderById(UUID id) {
         Order order = orderRepository.findByIdWithItems(id)
-                .orElseThrow(() -> new OrderNotFoundException("Заказ не найден: " + id));
+                .orElseThrow(() -> new OrderNotFoundException(ORDER_NOT_FOUND_MSG + id));
 
         OrderResponse response = orderMapper.toResponse(order);
         attachPaymentInfo(response, id);
@@ -120,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("Отмена заказа {}: {}", orderId, reason);
 
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Заказ не найден: " + orderId));
+                .orElseThrow(() -> new OrderNotFoundException(ORDER_NOT_FOUND_MSG + orderId));
 
         order.cancel();
         orderRepository.save(order);
@@ -137,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
             PaymentResponse payment = paymentService.getPaymentByOrderId(orderId);
             response.setPaymentStatus(payment.getStatus());
             response.setTransactionId(payment.getTransactionId());
-        } catch (Exception e) {
+        } catch (PaymentException e) {
             log.warn("Не удалось получить информацию о платеже для заказа {}", orderId);
         }
     }

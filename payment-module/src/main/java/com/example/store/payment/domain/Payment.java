@@ -48,9 +48,9 @@ public class Payment {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void markAsPaid(String transactionId) {
+    public void markAsPaid(String paidTransactionId) {
         this.status = PaymentStatus.PAID;
-        this.transactionId = transactionId;
+        this.transactionId = paidTransactionId;
         this.processedAt = LocalDateTime.now();
     }
 

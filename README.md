@@ -8,6 +8,7 @@
 - H2 in-memory (режим, близкий к PostgreSQL)  
 - Lombok, MapStruct  
 - OpenAPI / Swagger UI (springdoc)
+- Checkstyle (конфигурация в `checkstyle/checkstyle.xml`)
 
 ## Модули
 
@@ -33,6 +34,16 @@
 ./gradlew :store-app:bootJar
 java -jar store-app/build/libs/store-app-1.0.0.jar
 ```
+
+Проверка стиля кода (Checkstyle входит в задачу `check`):
+
+```bash
+./gradlew checkstyleMain
+# или полная проверка + тесты:
+./gradlew check
+```
+
+Отчёты: `*/build/reports/checkstyle/main.html`
 
 ## Документация API (Swagger)
 

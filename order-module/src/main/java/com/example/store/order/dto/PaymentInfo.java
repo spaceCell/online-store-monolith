@@ -7,7 +7,9 @@ import lombok.Data;
 @Data
 public class PaymentInfo {
 
-    @Schema(description = "Номер карты (мин. 16 цифр; оканчивается на 0000 — успех, 9999 — отказ)", example = "4111111111110000")
+    @Schema(
+            description = "Номер карты (мин. 16 цифр; оканчивается на 0000 — успех, 9999 — отказ)",
+            example = "4111111111110000")
     private String cardNumber;
 
     @Schema(example = "IVAN IVANOV")

@@ -1,5 +1,6 @@
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.plugins.quality.CheckstyleExtension
 
 plugins {
     id("org.springframework.boot") version "3.1.5" apply false
@@ -17,7 +18,15 @@ allprojects {
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "checkstyle")
     apply(plugin = "io.spring.dependency-management")
+
+    configure<CheckstyleExtension> {
+        toolVersion = "10.12.5"
+        configDirectory = rootProject.file("checkstyle")
+        configFile = rootProject.file("checkstyle/checkstyle.xml")
+        isIgnoreFailures = false
+    }
 
     configure<DependencyManagementExtension> {
         imports {
